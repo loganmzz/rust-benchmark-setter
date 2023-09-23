@@ -18,7 +18,7 @@ struct Foobar {
     foo: String,
 }
 
-foobar.foo("foobar")
+foobar.set_foo("foobar")
 ```
 
 * **Direct input for `Option` fields**: No need to wrap values in `Some(_)`
@@ -28,7 +28,7 @@ struct Foobar {
     bar: Option<bool>,
 }
 
-foo.bar(true)
+foo.set_bar(true)
 ```
 
 * **`Default` support** (Builder only): Avoiding to setup full struct
@@ -50,8 +50,8 @@ struct Foobar {
     bars: HashMap<u8, u8>,
 }
 
-foobar.foo(1);
-foobar.bar(1, 1);
+foobar.push_foo(1);
+foobar.push_bar(1, 1);
 ```
 
 * **Collection builder support**: Avoid import and long call for sub-items *with* function
@@ -71,14 +71,14 @@ struct Bar {
     value: u8,
 }
 
-foobar.foo_with_default(|f| { f.value(true); });
-foobar.bar_with_default(|b| { b.value(1); });
+foobar.push_foo_with_default(|f| f.value(true));
+foobar.push_bar_with_default(|b| b.value(1));
 
-foobar.foo_with_builder(|fb| fb.value(true));
-foobar.bar_with_builder(|bb| bb.value(1));
+foobar.push_foo_with_builder(|fb| fb.value(true));
+foobar.push_bar_with_builder(|bb| bb.value(1));
 ```
 
-* **Fluent support**: Ease and beauty data structure initialization with *ownership* or *mutable borrow*
+* **Chain support**: Ease and beauty data structure initialization with *ownership* or *mutable borrow*
 
 ```rust
 struct Foobar {
@@ -87,10 +87,14 @@ struct Foobar {
 }
 
 foobar
-    .foo(true)
-    .bar(1);
+    .set_foo(true)
+    .set_bar(1);
 ```
 
 ## Crates
 
 Each crate is tested into its own module. If variants exist, they are tested into a sub-mobule.
+
+### `blueprint`
+
+Manually generated codes with demo data structure and target feature implementation.
