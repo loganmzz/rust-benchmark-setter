@@ -2,5 +2,7 @@
 //!
 //! Available versions:
 //! * [`setter`]
+//! * [`builder`]
 
 pub mod setter;
+pub mod builder;
