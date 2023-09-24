@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Item","ItemBuilder","Root","RootBuilder"],"trait":["TakeWithOption"]};
