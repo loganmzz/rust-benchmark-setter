@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ItemBuilderError","RootBuilderError"],"struct":["Item","ItemBuilder","Root","RootBuilder"]};
