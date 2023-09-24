@@ -3,6 +3,6 @@ default:
 
 html:
     #!/usr/bin/env bash
-    rm -rf ./html &&
+    rm -rf ./docs &&
     cargo doc &&
-    cp -r ./target/doc ./html
+    cp -r ./target/doc ./docs
