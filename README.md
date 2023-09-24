@@ -2,4 +2,4 @@
 
 Rust project benchmarking builder/setter generation crates
 
-See https://loganmzz.github.io/rust-benchmark-setter/rust-benchmark-setter/index.html
+See https://loganmzz.github.io/rust-benchmark-setter/
