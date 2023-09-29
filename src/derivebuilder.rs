@@ -1,4 +1,4 @@
-//! [`derive_builder` crate](https://crates.io/crates/derive_builder) demo.
+//! [`derive_builder 0.12.0` crate](https://crates.io/crates/derive_builder/0.12.0) demo.
 //!
 //! ## Summary
 //!
@@ -16,14 +16,15 @@
 //!
 //! | Feature | [`derive-builder`](self) |
 //! | --- | --- |
-//! | [`fn builder()`](#feature---builder-function) | ❌ |
-//! | [`Into` field](#feature---into-field) | ⚠ |
-//! | [`Option` field](#feature---option-field) | ❗ |
-//! | [`Default` struct](#feature---default-struct) | ❗ |
-//! | [Collection field](#feature---collection-field) | ❗ |
-//! | [`Builder` field](#feature---builder-field) | ❌ |
-//! | [`Into` builder](#feature---into-builder) | ❌ |
-//! | [Chain call](#feature---chain-call) | ✔ |
+//! | [`fn builder()`](#feature---builder-function) | ✋ |
+//! | [`Into` field](#feature---into-field) | 🤏 |
+//! | [`Option` field](#feature---option-field) | 👍 |
+//! | [`Default` struct](#feature---default-struct) | 👍 |
+//! | [Collection field](#feature---collection-field) | ☝ |
+//! | [`Builder` field](#feature---builder-field) | ✋ |
+//! | [`Into` builder](#feature---into-builder) | ✋ |
+//! | [Chain call](#feature---chain-call) | 👍 |
+//! | [Builder customization](#feature---builder-customization) | 👍 |
 //!
 //! ## Example
 //!
@@ -82,9 +83,9 @@
 //!
 //! ##### Feature - Builder function
 //!
-//! ❌
+//! ✋
 //!
-//! No static builder init from target struct:
+//! No static builder init from target struct, but can be added:
 //!
 //! ```
 //! # struct Root;
@@ -99,9 +100,9 @@
 //!
 //! ##### Feature - Into field
 //!
-//! ⚠
+//! 🤏
 //!
-//! No support of `Into` for `HashMap` entries
+//! No support of `Into` for `HashMap` entries. Can be added.
 //!
 //! ```
 //! # #[macro_use]
@@ -136,7 +137,7 @@
 //!
 //! ##### Feature - Option field
 //!
-//! ❗
+//! 👍
 //!
 //! `setter(strip_option)` setting must be set on every structs:
 //!
@@ -178,7 +179,7 @@
 //!
 //! ##### Feature - Default struct
 //!
-//! ❗
+//! 👍
 //!
 //! `default` setting must be set on every structs:
 //!
@@ -215,7 +216,7 @@
 //!
 //! ##### Feature - Collection field
 //!
-//! ❗
+//! ☝
 //!
 //! `setter(each(...))` setting must be set on every collection field:
 //!
@@ -246,9 +247,10 @@
 //!
 //! ##### Feature - Builder field
 //!
-//! ❌
+//! ✋
 //!
-//! No support for nested data builders
+//! No support for nested data builders. Can be added.
+//!
 //! ```
 //! # struct RootBuilder;
 //! # #[derive(Default)]
@@ -271,9 +273,10 @@
 //!
 //! ##### Feature - Into Builder
 //!
-//! ❌
+//! ✋
 //!
-//! No implemention of `Into` for builders
+//! No implemention of `Into` for builders. Can be added.
+//!
 //! ```
 //! # struct Root;
 //! # struct RootBuilder;
@@ -289,7 +292,70 @@
 //!
 //! ##### Feature - Chain call
 //!
-//! ✔
+//! 👍
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate derive_builder;
+//! #[derive(Builder)]
+//! # #[derive(Debug,PartialEq)]
+//! struct Root {
+//!    foo: u8,
+//!    bar: u8,
+//! }
+//! # pub fn main() {
+//! #   let root =
+//! RootBuilder::default()
+//!     .foo(1)
+//!     .bar(2)
+//!     .build()
+//!     .expect("root error");
+//! #   assert_eq!(
+//! #     Root {
+//! #       foo: 1,
+//! #       bar: 2,
+//! #     },
+//! #     root,
+//! #   );
+//! # }
+//! ```
+//!
+//! ##### Feature - Builder customization
+//!
+//! 👍
+//!
+//! ```
+//! # #[macro_use]
+//! # extern crate derive_builder;
+//! #[derive(Builder)]
+//! # #[derive(Debug,PartialEq)]
+//! struct Root {
+//!    foo: u8,
+//!    bar: u8,
+//! }
+//! impl RootBuilder {
+//!   pub fn foobar(&mut self, foobar: (u8, u8)) -> &mut Self {
+//!     self
+//!       .foo(foobar.0)
+//!       .bar(foobar.1)
+//!   }
+//! }
+//! # pub fn main() {
+//! #   let root =
+//! RootBuilder::default()
+//!     .foobar((1,2))
+//!     .build()
+//!     .expect("root error");
+//! #   assert_eq!(
+//! #     Root {
+//! #       foo: 1,
+//! #       bar: 2,
+//! #     },
+//! #     root,
+//! #   );
+//! # }
+//! ```
+//!
 //!
 
 use std::collections::HashMap;

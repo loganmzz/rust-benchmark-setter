@@ -7,22 +7,24 @@
 //!
 //! ## Comparison
 //!
-//! | Feature | [`derive-builder`](derivebuilder) |
-//! | --- | --- |
-//! | [`fn builder()`](#feature---builder-function) | [❌](derivebuilder/index.html#feature---builder-function) |
-//! | [`Into` field](#feature---into-field) | [⚠](derivebuilder/index.html#feature---into-field) |
-//! | [`Option` field](#feature---option-field) | [❗](derivebuilder/index.html#feature---option-field) |
-//! | [`Default` struct](#feature---default-struct) | [❗](derivebuilder/index.html#feature---default-struct) |
-//! | [Collection field](#feature---collection-field) | [❗](derivebuilder/index.html#feature---collection-field) |
-//! | [`Builder` field](#feature---builder-field) | [❌](derivebuilder/index.html#feature---builder-field) |
-//! | [`Into` builder](#feature---into-builder) | [❌](derivebuilder/index.html#feature---into-builder) |
-//! | [Chain call](#feature---chain-call) | [✔](derivebuilder/index.html#feature---chain-call) |
+//! | Feature                                                  | [`derive-builder 0.12.0`](derivebuilder)                            | [`typed_builder 0.16.2`](typedbuilder)                             |
+//! | -----------------------------------------------          | ---------------------------------------------------------    | -------------------------------------------------------     |
+//! | [`fn builder()`](#feature---builder-function)            | [✋](derivebuilder/index.html#feature---builder-function)    | [👍](typedbuilder/index.html#feature---builder-function)     |
+//! | [`Into` field](#feature---into-field)                    | [🤏](derivebuilder/index.html#feature---into-field)           | [🤏](typedbuilder/index.html#feature---into-field)          |
+//! | [`Option` field](#feature---option-field)                | [👍](derivebuilder/index.html#feature---option-field)        | [☝](typedbuilder/index.html#feature---option-field)        |
+//! | [`Default` struct](#feature---default-struct)            | [👍](derivebuilder/index.html#feature---default-struct)      | [👎](typedbuilder/index.html#feature---default-struct)      |
+//! | [Collection field](#feature---collection-field)          | [☝](derivebuilder/index.html#feature---collection-field)    | [👎](typedbuilder/index.html#feature---collection-field)     |
+//! | [`Builder` field](#feature---builder-field)              | [✋](derivebuilder/index.html#feature---builder-field)       | [👎](typedbuilder/index.html#feature---builder-field)        |
+//! | [`Into` builder](#feature---into-builder)                | [✋](derivebuilder/index.html#feature---into-builder)        | [👎](typedbuilder/index.html#feature---into-builder)         |
+//! | [Chain call](#feature---chain-call)                      | [👍](derivebuilder/index.html#feature---chain-call)           | [👍](typedbuilder/index.html#feature---chain-call)           |
+//! | [Builder customization](#feature---builder-customization) | [👍](derivebuilder/index.html#feature---builder-customization) | [👎](typedbuilder/index.html#feature---builder-customization) |
 //!
 //! Legend:
-//! * ✔: fully supported
-//! * ❗: suppported, but not default (require configuration)
-//! * ⚠: partially support (see details)
-//! * ❌: not supported
+//! * 👍: supported (may require configuration per struct)
+//! * ☝: supported (but require field configuration)
+//! * 🤏: partially supported (see details)
+//! * ✋: not supported (but custom code possible)
+//! * 👎: not supported (and can't add custom code)
 //!
 //! ## Expected Features
 //!
@@ -193,6 +195,22 @@
 //!     .set_bar(1);
 //! ```
 //!
+//! ##### Feature - Builder customization
+//!
+//! **Builder customization**: Let's extend capability (including unsupported features)
+//!
+//! ```
+//! struct Foobar {
+//! }
+//! # struct FoobarBuilder;
+//! impl FoobarBuilder {
+//!   fn extension(&mut self) -> &mut Self {
+//!     println!("Extension");
+//!     self
+//!   }
+//! }
+//! ```
+//!
 //! ## Benchmarks
 //!
 //! Each crate is tested into its own module. If variants exist, they are tested into a sub-mobule.
@@ -200,10 +218,13 @@
 //! * [`blueprint`]: Manually generated codes with demo data structure and target feature implementation.
 //!   * [`blueprint::setter`]
 //!   * [`blueprint::builder`]
-//! * [`derivebuilder`]: Using [`derive_builder` crate](https://crates.io/crates/derive_builder)
+//! * [`derivebuilder`]: Using [`derive_builder 0.12.0` crate](https://crates.io/crates/derive_builder/0.12.0)
+//! * [`typedbuilder`]: Using [`typed-builder 0.16.2` crate](https://crates.io/crates/typed-builder/0.16.2)
+//!
 
 #[macro_use]
 extern crate derive_builder;
 
 pub mod blueprint;
 pub mod derivebuilder;
+pub mod typedbuilder;
