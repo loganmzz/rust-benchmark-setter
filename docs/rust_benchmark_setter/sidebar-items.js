@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["blueprint","derivebuilder"]};
+window.SIDEBAR_ITEMS = {"mod":["blueprint","derivebuilder","typedbuilder"]};
